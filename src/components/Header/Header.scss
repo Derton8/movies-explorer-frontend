@@ -2,10 +2,8 @@
   display: flex;
   justify-content: space-between;
   padding: 18px 70px;
-  max-width: 1280px;
-  margin: 0 auto;
 
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1150px) {
     padding: 18px 30px;
   }
   @media screen and (max-width: 500px) {
@@ -19,7 +17,7 @@
 
   &__logo {
     flex-shrink: 0;
-    background-image: url(../../images/header__logo.svg);
+    background-image: url(../../images/header-logo.svg);
     height: 38px;
     width: 38px;
     background-repeat: no-repeat;
@@ -30,9 +28,6 @@
 
     &:hover {
       opacity: 0.8;
-    }
-
-    @media screen and (max-width: 920px) {
     }
   }
 
