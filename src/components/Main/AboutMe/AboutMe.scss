@@ -1,0 +1,124 @@
+.me {
+  padding: 110px 70px 100px;
+
+  @media screen and (max-width: 1150px) {
+    padding: 90px 50px;
+  }
+  @media screen and (max-width: 500px) {
+    padding: 70px 14px;
+  }
+
+  &__columns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 66px;
+
+    @media screen and (max-width: 767px) {
+      flex-direction: column-reverse;
+      align-items: center;
+      margin-top: 60px;
+    }
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__title {
+    margin: 0;
+    padding-bottom: 18px;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+
+    @media screen and (max-width: 1150px) {
+      font-size: 40px;
+      line-height: 40px;
+      padding-bottom: 16px;
+    }
+    @media screen and (max-width: 767px) {
+      padding: 40px 0 20px;
+    }
+    @media screen and (max-width: 500px) {
+      font-size: 30px;
+      line-height: 36px;
+    }
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+
+    @media screen and (max-width: 1150px) {
+      font-size: 12px;
+      line-height: 18px;
+    }
+    @media screen and (max-width: 500px) {
+      font-size: 11px;
+      line-height: 16px;
+    }
+  }
+
+  &__text {
+    margin: 0;
+    padding-top: 26px;
+    max-width: 600px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+
+    @media screen and (max-width: 1150px) {
+      padding-top: 20px;
+      font-size: 12px;
+      line-height: 18px;
+    }
+    @media screen and (max-width: 767px) {
+      max-width: 100%;
+    }
+    @media screen and (max-width: 500px) {
+      font-size: 11px;
+      line-height: 16px;
+    }
+  }
+
+  &__image {
+    margin-left: 49px;
+    display: block;
+    max-width: 270px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+
+    @media screen and (max-width: 1150px) {
+      max-width: 255px;
+    }
+    @media screen and (max-width: 767px) {
+      margin-left: 0;
+      max-width: 292px;
+    }
+    @media screen and (max-width: 500px) {
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-decoration: none;
+    color: #ffffff;
+
+    @media screen and (max-width: 767px) {
+      margin-top: 40px;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
