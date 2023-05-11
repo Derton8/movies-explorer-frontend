@@ -106,12 +106,13 @@
   }
 
   &__link {
-    display: inline-block;
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
     text-decoration: none;
     color: #ffffff;
+    transition: opacity 0.3s ease 0.1s;
+    align-self: start;
 
     @media screen and (max-width: 767px) {
       margin-top: 40px;

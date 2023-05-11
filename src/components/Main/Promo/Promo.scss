@@ -53,7 +53,6 @@
   }
 
   &__btn {
-    display: block;
     max-width: 129px;
     font-style: normal;
     font-weight: 500;
@@ -65,6 +64,7 @@
     border-radius: 3px;
     padding: 9px 18px;
     box-sizing: border-box;
+    transition: opacity 0.3s ease 0.1s;
 
     &:hover {
       opacity: 0.7;
