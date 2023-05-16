@@ -26,6 +26,7 @@
     object-fit: contain;
     background-size: cover;
     background-position: center;
+    transition: opacity 0.3s ease 0.1s;
 
     &:hover {
       opacity: 0.8;
