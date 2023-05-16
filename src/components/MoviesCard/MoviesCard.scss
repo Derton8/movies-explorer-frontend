@@ -24,6 +24,9 @@
   &__column {
     display: flex;
     flex-direction: column;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   &__title {
@@ -60,13 +63,13 @@
     }
   }
 
-  &__btn {
+  &__btn-like {
     outline: 0;
     width: 30px;
     height: 30px;
     border: 0;
     align-self: center;
-    background-image: url(../../../images/movie-icon.svg);
+    background-image: url(../../images/movie-icon.svg);
     background-color: #313131;
     background-repeat: no-repeat;
     background-position: center;
@@ -89,8 +92,37 @@
     }
   }
 
-  &__btn_active {
-    background-image: url(../../../images/movie-icon-active.svg);
+  &__btn-like_active {
+    background-image: url(../../images/movie-icon-active.svg);
     background-color: #3ddc84;
+  }
+
+  &__btn-delete {
+    outline: 0;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    align-self: center;
+    background-image: url(../../images/movie-icon-delete.svg);
+    background-color: #313131;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-sizing: border-box;
+    border-radius: 36px;
+    cursor: pointer;
+    transition: opacity 0.3s ease 0.1s;
+    flex-shrink: 0;
+    margin-left: 26px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    @media screen and (max-width: 1150px) {
+      margin-left: 31px;
+    }
+    @media screen and (max-width: 500px) {
+      margin-left: 32px;
+    }
   }
 }

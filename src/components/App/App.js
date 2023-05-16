@@ -5,7 +5,7 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
-
+import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.scss';
 
 function App() {
@@ -31,6 +31,16 @@ function App() {
             <>
               <Header loggedIn={true} />
               <Movies></Movies>
+              <Footer></Footer>
+            </>
+          }
+        />
+        <Route
+          path='/saved-movies'
+          element={
+            <>
+              <Header loggedIn={true} />
+              <SavedMovies></SavedMovies>
               <Footer></Footer>
             </>
           }
