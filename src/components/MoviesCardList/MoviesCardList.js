@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import img1 from '../../images/img-1.png';
 import img2 from '../../images/img-2.png';
 import img3 from '../../images/img-3.png';
@@ -8,6 +10,8 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.scss';
 
 export default function MoviesCardList(props) {
+  const location = useLocation();
+
   return (
     <section className='cards'>
       <ul className='cards__list'>
@@ -30,9 +34,15 @@ export default function MoviesCardList(props) {
           <MoviesCard link={img6}></MoviesCard>
         </li>
       </ul>
-      <button className='cards__btn' type='button'>
-        Ещё
-      </button>
+      <div className='cards__container'>
+        <button
+          className='cards__btn'
+          type='button'
+          style={{ display: location.pathname === '/saved-movies' && 'none' }}
+        >
+          Ещё
+        </button>
+      </div>
     </section>
   );
 }

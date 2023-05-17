@@ -50,8 +50,17 @@
     margin-left: 17px;
     box-sizing: border-box;
   }
+}
+.navigation {
+  display: flex;
+  flex: 1;
 
-  &__button {
+  @media screen and (max-width: 768px) {
+    display: block;
+    flex: 0;
+  }
+
+  .navigation__button {
     display: none;
     background-image: url(../../../images/burger-icon.svg);
     outline: 0;

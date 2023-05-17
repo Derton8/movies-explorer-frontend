@@ -13,8 +13,6 @@ export default function MoviesCard(props) {
     }
   };
 
-  const bool = true;
-
   return (
     <div className='movie'>
       <div className='movie__container'>
