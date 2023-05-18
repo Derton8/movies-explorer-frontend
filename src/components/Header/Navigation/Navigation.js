@@ -7,7 +7,7 @@ export default function Navigation(props) {
   window.addEventListener(
     'resize',
     () => {
-      if (window.innerWidth > 768 && toggle && toggle[0].checked === true) {
+      if (window.innerWidth > 768 && toggle) {
         toggle[0].checked = false;
       }
     },
