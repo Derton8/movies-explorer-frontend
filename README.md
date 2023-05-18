@@ -22,4 +22,5 @@
 ## 🔗 Figma
 
 Ссылка на мой [макет](https://www.figma.com/file/IjD7nyn0T17kzxUK4FjOAs/Diplom?type=design&node-id=891%3A3857&t=PMvfkcHxPHd31Xse-1).
+
 Ссылка на [яндекс.диск](https://disk.yandex.ru/d/jqOLzERl3Du08A).
