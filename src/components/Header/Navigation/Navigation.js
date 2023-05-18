@@ -3,6 +3,16 @@ import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
 
 export default function Navigation(props) {
+  const toggle = document.getElementsByClassName('navigation__toggle');
+  window.addEventListener(
+    'resize',
+    () => {
+      if (window.innerWidth > 768 && toggle && toggle[0].checked === true) {
+        toggle[0].checked = false;
+      }
+    },
+    false
+  );
   return (
     <div className='navigation'>
       <nav className='nav'>
@@ -26,7 +36,7 @@ export default function Navigation(props) {
         id='navigation-toggle'
         type='checkbox'
       />
-      <label className='navigation__btn' for='navigation-toggle'>
+      <label className='navigation__btn' htmlFor='navigation-toggle'>
         <span></span>
       </label>
       <div className='navigation__popup'></div>
