@@ -1,4 +1,4 @@
-# Проект Movies (backend)
+# Проект Movies (frontend)
 
 ---
 
