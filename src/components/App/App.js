@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import Login from '../Auth/Login/Login';
+import Register from '../Auth/Register/Register';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -15,7 +17,8 @@ function App() {
   return (
     <div className='App'>
       <Routes>
-        <Route path='/signup' element={<Header loggedIn={loggedIn} />} />
+        <Route path='/signup' element={<Register></Register>} />
+        <Route path='/signin' element={<Login></Login>} />
         <Route
           path='/'
           element={
