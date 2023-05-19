@@ -193,4 +193,18 @@
       padding-bottom: 7px;
     }
   }
+
+  &__icon {
+    display: inline-block;
+    border-radius: 4px;
+    width: 26px;
+    height: 30px;
+    align-self: center;
+    background-image: url(../../../images/acc-icon.svg);
+    background-color: #313131;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 17px;
+    box-sizing: border-box;
+  }
 }

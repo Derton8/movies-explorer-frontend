@@ -64,7 +64,7 @@ export default function Navigation(props) {
             to='/profile'
           >
             Аккаунт
-            <div className='nav__icon'></div>
+            <div className='navigation__icon'></div>
           </NavLink>
         </li>
       </ul>
