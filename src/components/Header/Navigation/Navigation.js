@@ -3,16 +3,19 @@ import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
 
 export default function Navigation(props) {
-  const toggle = document.getElementsByClassName('navigation__toggle');
-  window.addEventListener(
-    'resize',
-    () => {
+  window.addEventListener('resize', handleResize, false);
+
+  function handleResize() {
+    const toggle = document.getElementById('toggle');
+    try {
       if (window.innerWidth > 768 && toggle) {
-        toggle[0].checked = false;
+        toggle.checked = false;
       }
-    },
-    false
-  );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div className='navigation'>
       <nav className='nav'>
@@ -31,34 +34,30 @@ export default function Navigation(props) {
           </NavLink>
         </div>
       </nav>
-      <input
-        className='navigation__toggle'
-        id='navigation-toggle'
-        type='checkbox'
-      />
-      <label className='navigation__btn' htmlFor='navigation-toggle'>
+      <input className='navigation__toggle' id='toggle' type='checkbox'></input>
+      <label className='navigation__btn' htmlFor='toggle'>
         <span></span>
       </label>
       <div className='navigation__popup'></div>
-      <ul className='navigation__menu'>
+      <nav className='navigation__menu'>
         <div>
-          <li className='navigation__menu-item'>
+          <div className='navigation__menu-item'>
             <NavLink className='navigation__link' to='/'>
               Главная
             </NavLink>
-          </li>
-          <li className='navigation__menu-item'>
+          </div>
+          <div className='navigation__menu-item'>
             <NavLink className='navigation__link' to='/movies'>
               Фильмы
             </NavLink>
-          </li>
-          <li className='navigation__menu-item'>
+          </div>
+          <div className='navigation__menu-item'>
             <NavLink className='navigation__link' to='/saved-movies'>
               Сохранённые фильмы
             </NavLink>
-          </li>
+          </div>
         </div>
-        <li className='navigation__menu-item'>
+        <div className='navigation__menu-item'>
           <NavLink
             className='navigation__link navigation__link_type_btn'
             to='/profile'
@@ -66,8 +65,8 @@ export default function Navigation(props) {
             Аккаунт
             <div className='navigation__icon'></div>
           </NavLink>
-        </li>
-      </ul>
+        </div>
+      </nav>
     </div>
   );
 }

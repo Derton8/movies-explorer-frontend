@@ -8,7 +8,7 @@ export default function Footer(props) {
       </h2>
       <div className='footer__columns'>
         <p className='footer__column'>&copy; 2023</p>
-        <ul className='footer__column'>
+        <div className='footer__column'>
           <a
             className='footer__link'
             href='https://practicum.yandex.ru'
@@ -25,7 +25,7 @@ export default function Footer(props) {
           >
             Github
           </a>
-        </ul>
+        </div>
       </div>
     </footer>
   );
