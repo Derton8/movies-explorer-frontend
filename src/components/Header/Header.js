@@ -11,7 +11,7 @@ export default function Header(props) {
     <header
       className='header'
       style={{
-        backgroundColor: loggedIn && 'transparent',
+        backgroundColor: location.pathname !== '/' && 'transparent',
         display:
           location.pathname === '/signup' ||
           location.pathname === '/signin' ||

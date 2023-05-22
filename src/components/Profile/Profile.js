@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import './Profile.scss';
 
 export default function Profile(props) {
+  const { onClick } = props;
   const [name, setName] = useState('Данил');
   const [email, setEmail] = useState('pochta@yandex.ru');
 
@@ -57,7 +58,7 @@ export default function Profile(props) {
           Редактировать
         </button>
       </form>
-      <NavLink className='profile__link' to='/'>
+      <NavLink className='profile__link' to='/' onClick={onClick}>
         Выйти из аккаунта
       </NavLink>
     </main>

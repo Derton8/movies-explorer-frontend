@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
+import * as auth from '../../utils/auth';
 import Login from '../Auth/Login/Login';
 import Register from '../Auth/Register/Register';
 import Footer from '../Footer/Footer';
@@ -15,13 +16,75 @@ import './App.scss';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    auth
+      .checkAuth()
+      .then((res) => {
+        if (res.authorized) {
+          setLoggedIn(true);
+          navigate('/', { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  function handleRegister(data) {
+    auth
+      .signup(data)
+      .then(() => {
+        auth
+          .signin(data)
+          .then((res) => {
+            setLoggedIn(true);
+            navigate('/', { replace: true });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleLogin(data) {
+    auth
+      .signin(data)
+      .then((res) => {
+        setLoggedIn(true);
+        navigate('/', { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleSignout() {
+    auth
+      .signout()
+      .then(() => {
+        setLoggedIn(false);
+        navigate('/signin', { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <div className='App'>
-      <Header loggedIn={false} />
+      <Header loggedIn={loggedIn} />
       <Routes>
-        <Route path='/signup' element={<Register />} />
-        <Route path='/signin' element={<Login />} />
+        <Route
+          path='/signup'
+          element={<Register onSubmit={handleRegister} />}
+        />
+        <Route path='/signin' element={<Login onSubmit={handleLogin} />} />
         <Route path='/' element={<Main />} />
         <Route
           path='/movies'
@@ -33,7 +96,13 @@ function App() {
         />
         <Route
           path='/profile'
-          element={<ProtectedRoute element={Profile} loggedIn={loggedIn} />}
+          element={
+            <ProtectedRoute
+              element={Profile}
+              loggedIn={loggedIn}
+              onClick={handleSignout}
+            />
+          }
         />
         <Route path='/404' element={<NotFound />} />
       </Routes>

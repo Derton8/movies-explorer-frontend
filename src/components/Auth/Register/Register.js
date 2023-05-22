@@ -4,12 +4,18 @@ import { Link, NavLink } from 'react-router-dom';
 import '../../Auth/Auth.scss';
 
 export default function Register(props) {
+  const { onSubmit } = props;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSubmit({ name, email, password });
+  }
+
   return (
-    <form className='form'>
+    <form className='form' onSubmit={handleSubmit}>
       <NavLink className='form__logo' to='/'></NavLink>
       <h1 className='form__title'>Добро пожаловать!</h1>
       <h2 className='form__input-title'>Имя</h2>
