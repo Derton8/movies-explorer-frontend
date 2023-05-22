@@ -1,8 +1,23 @@
+import { useLocation } from 'react-router-dom';
+
 import './Footer.scss';
 
 export default function Footer(props) {
+  const location = useLocation();
+
   return (
-    <footer className='footer'>
+    <footer
+      className='footer'
+      style={{
+        display:
+          location.pathname === '/signup' ||
+          location.pathname === '/signin' ||
+          location.pathname === '/404' ||
+          location.pathname === '/profile'
+            ? 'none'
+            : 'block',
+      }}
+    >
       <h2 className='footer__title'>
         Учебный проект Яндекс.Практикум х BeatFilm.
       </h2>

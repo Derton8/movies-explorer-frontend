@@ -1,15 +1,24 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import './Header.scss';
 import Navigation from './Navigation/Navigation';
 
 export default function Header(props) {
   const { loggedIn } = props;
+  const location = useLocation();
 
   return (
     <header
       className='header'
-      style={{ backgroundColor: loggedIn && 'transparent' }}
+      style={{
+        backgroundColor: loggedIn && 'transparent',
+        display:
+          location.pathname === '/signup' ||
+          location.pathname === '/signin' ||
+          location.pathname === '/404'
+            ? 'none'
+            : 'flex',
+      }}
     >
       <NavLink className='header__logo' to='/'></NavLink>
       {loggedIn ? (

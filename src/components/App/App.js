@@ -9,6 +9,7 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.scss';
 
@@ -17,50 +18,26 @@ function App() {
 
   return (
     <div className='App'>
+      <Header loggedIn={false} />
       <Routes>
-        <Route path='/signup' element={<Register></Register>} />
-        <Route path='/signin' element={<Login></Login>} />
-        <Route
-          path='/'
-          element={
-            <>
-              <Header loggedIn={loggedIn} />
-              <Main></Main>
-              <Footer></Footer>
-            </>
-          }
-        />
+        <Route path='/signup' element={<Register />} />
+        <Route path='/signin' element={<Login />} />
+        <Route path='/' element={<Main />} />
         <Route
           path='/movies'
-          element={
-            <>
-              <Header loggedIn={true} />
-              <Movies></Movies>
-              <Footer></Footer>
-            </>
-          }
+          element={<ProtectedRoute element={Movies} loggedIn={loggedIn} />}
         />
         <Route
           path='/saved-movies'
-          element={
-            <>
-              <Header loggedIn={true} />
-              <SavedMovies></SavedMovies>
-              <Footer></Footer>
-            </>
-          }
+          element={<ProtectedRoute element={SavedMovies} loggedIn={loggedIn} />}
         />
         <Route
           path='/profile'
-          element={
-            <>
-              <Header loggedIn={true} />
-              <Profile></Profile>
-            </>
-          }
+          element={<ProtectedRoute element={Profile} loggedIn={loggedIn} />}
         />
-        <Route path='/404' element={<NotFound></NotFound>} />
+        <Route path='/404' element={<NotFound />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
