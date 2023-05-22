@@ -1,0 +1,210 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
+  &__link {
+    margin-left: 16px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: opacity 0.3s ease 0.1s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:first-child {
+      margin-left: 44px;
+    }
+
+    &.active {
+      font-weight: 500;
+    }
+
+    &_type_btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__icon {
+    display: inline-block;
+    border-radius: 4px;
+    width: 26px;
+    height: 30px;
+    align-self: center;
+    background-image: url(../../../images/acc-icon.svg);
+    background-color: #313131;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 17px;
+    box-sizing: border-box;
+  }
+}
+.navigation {
+  display: flex;
+  flex: 1;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+    flex: 0;
+  }
+
+  &__btn {
+    display: none;
+    background-image: url(../../../images/burger-icon.svg);
+    outline: 0;
+    background-color: transparent;
+    width: 38px;
+    height: 38px;
+    align-self: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 0;
+    cursor: pointer;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__toggle {
+    display: none;
+
+    &:checked ~ .navigation__btn {
+      background-image: url(../../../images/burger-close-icon.svg);
+      position: fixed;
+      top: 18px;
+      right: 30px;
+      z-index: 3;
+
+      @media screen and (max-width: 500px) {
+        top: 18px;
+        right: 14px;
+      }
+    }
+    &:checked ~ .navigation__popup {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 0s linear 0s, opacity 0.7s;
+    }
+    &:checked ~ .navigation__menu {
+      visibility: visible;
+      right: 0;
+    }
+  }
+
+  &__popup {
+    z-index: 1;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.7s, opacity 0.7s;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    right: -100%;
+    width: 520px;
+    height: 100%;
+    margin: 0;
+    padding: 159px 90px 91px;
+    list-style: none;
+    background: #202020;
+    box-sizing: border-box;
+    transition-duration: 1s;
+    z-index: 2;
+
+    @media screen and (max-width: 600px) {
+      padding: 144px 10px 47px;
+      width: 100%;
+    }
+  }
+
+  &__menu-item {
+    text-align: center;
+    margin-bottom: 28px;
+    box-sizing: border-box;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 600px) {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__link {
+    box-sizing: border-box;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    transition: opacity 0.3s ease 0.1s;
+    padding-bottom: 4px;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &.active {
+      border-bottom: 2px solid #ffffff;
+    }
+
+    &_type_btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 16px;
+      max-width: max-content;
+    }
+
+    @media screen and (max-width: 600px) {
+      padding-bottom: 7px;
+    }
+  }
+
+  &__icon {
+    display: inline-block;
+    border-radius: 4px;
+    width: 26px;
+    height: 30px;
+    align-self: center;
+    background-image: url(../../../images/acc-icon.svg);
+    background-color: #313131;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 17px;
+    box-sizing: border-box;
+  }
+}

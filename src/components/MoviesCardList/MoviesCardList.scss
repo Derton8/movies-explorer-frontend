@@ -1,0 +1,61 @@
+.cards {
+  padding: 70px 70px 80px;
+
+  @media screen and (max-width: 1150px) {
+    padding: 70px 30px 80px;
+  }
+  @media screen and (max-width: 500px) {
+    padding: 40px 10px 80px;
+  }
+
+  &__list {
+    margin: 0 0 30px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    gap: 30px 24px;
+    list-style-type: none;
+
+    @media screen and (max-width: 1279px) {
+      grid-template-columns: repeat(2, minmax(100px, 1fr));
+      gap: 36px 30px;
+    }
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(2, minmax(100px, 1fr));
+    }
+    @media screen and (max-width: 640px) {
+      grid-template-columns: repeat(1, minmax(100px, 1fr));
+      gap: 16px;
+    }
+  }
+
+  &__container {
+    padding: 50px 0 0;
+  }
+
+  &__btn {
+    margin: 0 auto;
+    display: block;
+    background-color: transparent;
+    border: 1px solid #424242;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    min-width: 320px;
+    min-height: 36px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.3s ease 0.1s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    @media screen and (max-width: 500px) {
+      min-width: 240px;
+    }
+  }
+}

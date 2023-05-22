@@ -1,0 +1,128 @@
+.profile {
+  padding: 74px 0 70px;
+  max-width: 410px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  height: 100%;
+
+  @media screen and (max-width: 1150px) {
+    padding: 236px 0 40px;
+  }
+  @media screen and (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 74px);
+    padding: 70px 30px 40px;
+  }
+
+  &__link {
+    margin-top: auto;
+    display: block;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #ee3465;
+    text-decoration: none;
+    transition: opacity 0.3s ease 0.1s;
+    flex: 0 0 auto;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    @media screen and (max-width: 500px) {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+}
+
+.form-profile {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex: 1 0 auto;
+
+  @media screen and (max-width: 500px) {
+    justify-content: space-between;
+  }
+
+  &__title {
+    max-width: 100%;
+    margin: 0;
+    padding-bottom: 123px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+
+    @media screen and (max-width: 1150px) {
+      padding-bottom: 96px;
+    }
+    @media screen and (max-width: 500px) {
+      padding-bottom: 80px;
+    }
+  }
+
+  &__input {
+    padding: 0;
+    text-align: right;
+    background-color: transparent;
+    color: #ffffff;
+    border: 0;
+    outline: none;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  &__row {
+    height: 14px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #424242;
+    margin-bottom: 17px;
+
+    &:last-of-type {
+      padding: 0;
+      border: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &__row-name {
+    margin: 0;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  &__sub-btn {
+    display: inline;
+    padding: 0;
+    margin: 220px 0 16px;
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease 0.1s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    @media screen and (max-width: 1150px) {
+      margin: 210px 0 16px;
+    }
+    @media screen and (max-width: 500px) {
+      margin: 0 0 16px;
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+}
