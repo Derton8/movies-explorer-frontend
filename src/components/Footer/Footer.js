@@ -10,12 +10,11 @@ export default function Footer(props) {
       className='footer'
       style={{
         display:
-          location.pathname === '/signup' ||
-          location.pathname === '/signin' ||
-          location.pathname === '/404' ||
-          location.pathname === '/profile'
-            ? 'none'
-            : 'block',
+          location.pathname === '/movies' ||
+          location.pathname === '/saved-movies' ||
+          location.pathname === '/'
+            ? 'block'
+            : 'none',
       }}
     >
       <h2 className='footer__title'>

@@ -13,11 +13,12 @@ export default function Header(props) {
       style={{
         backgroundColor: location.pathname !== '/' && 'transparent',
         display:
-          location.pathname === '/signup' ||
-          location.pathname === '/signin' ||
-          location.pathname === '/404'
-            ? 'none'
-            : 'flex',
+          location.pathname === '/movies' ||
+          location.pathname === '/saved-movies' ||
+          location.pathname === '/' ||
+          location.pathname === '/profile'
+            ? 'flex'
+            : 'none',
       }}
     >
       <NavLink className='header__logo' to='/'></NavLink>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import * as auth from '../../utils/Auth';
+import * as authApi from '../../utils/AuthApi';
 import { mainApi } from '../../utils/MainApi';
 import Login from '../Auth/Login/Login';
 import Register from '../Auth/Register/Register';
@@ -17,22 +17,17 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.scss';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
   const [currentUser, setCurrentUser] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    auth
-      .checkAuth()
-      .then((res) => {
-        if (res.authorized) {
-          setLoggedIn(true);
-          navigate('/movies', { replace: true });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (
+      loggedIn &&
+      (location.pathname === '/signup' || location.pathname === '/signin')
+    )
+      navigate('/movies', { replace: true });
   }, []);
 
   useEffect(() => {
@@ -60,18 +55,10 @@ function App() {
   }
 
   function handleRegister(data) {
-    auth
+    authApi
       .signup(data)
       .then(() => {
-        auth
-          .signin(data)
-          .then((res) => {
-            setLoggedIn(true);
-            navigate('/movies', { replace: true });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        handleLogin(data);
       })
       .catch((err) => {
         console.log(err);
@@ -79,10 +66,11 @@ function App() {
   }
 
   function handleLogin(data) {
-    auth
+    authApi
       .signin(data)
       .then((res) => {
         setLoggedIn(true);
+        localStorage.setItem('logged', JSON.stringify(true));
         navigate('/movies', { replace: true });
       })
       .catch((err) => {
@@ -91,10 +79,12 @@ function App() {
   }
 
   function handleSignout() {
-    auth
+    authApi
       .signout()
       .then(() => {
         setLoggedIn(false);
+        setCurrentUser({ email: '', name: '' });
+        localStorage.clear();
         navigate('/', { replace: true });
       })
       .catch((err) => {
@@ -134,7 +124,7 @@ function App() {
               />
             }
           />
-          <Route path='/404' element={<NotFound />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
       </div>
