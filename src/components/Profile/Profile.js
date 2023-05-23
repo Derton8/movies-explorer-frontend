@@ -1,12 +1,22 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import './Profile.scss';
 
 export default function Profile(props) {
-  const { onClick } = props;
-  const [name, setName] = useState('Данил');
-  const [email, setEmail] = useState('pochta@yandex.ru');
+  const { onClick, onUpdateUser } = props;
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const currentUser = useContext(CurrentUserContext);
+
+  // После загрузки текущего пользователя из API
+  // его данные будут использованы в управляемых компонентах.
+  useEffect(() => {
+    setName(currentUser.name ?? '');
+    setEmail(currentUser.email ?? '');
+  }, [currentUser]);
 
   function handleChangeName(e) {
     setName(e.target.value);
@@ -18,6 +28,7 @@ export default function Profile(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    onUpdateUser({ name: name, email: email });
   }
 
   return (

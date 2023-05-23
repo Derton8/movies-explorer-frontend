@@ -1,4 +1,5 @@
-const BASE_URL = 'https://api.movies-film.nomoredomains.monster';
+import { apiConfig } from './constants.js';
+const BASE_URL = apiConfig.url;
 
 function handleCorrectResponse(response) {
   if (response.ok) {
