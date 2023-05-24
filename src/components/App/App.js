@@ -8,6 +8,7 @@ import Login from '../Auth/Login/Login';
 import Register from '../Auth/Register/Register';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
@@ -19,6 +20,8 @@ import './App.scss';
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
   const [currentUser, setCurrentUser] = useState({});
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [infoTooltipStatus, setInfoTooltipStatus] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -48,9 +51,17 @@ function App() {
       .updateUser({ name, email })
       .then((user) => {
         setCurrentUser(user.data);
+        setInfoTooltipStatus('success');
+        setIsInfoTooltipOpen(true);
       })
       .catch((err) => {
-        console.log(err);
+        if (err === 'Ошибка: 409') {
+          setInfoTooltipStatus('409');
+          setIsInfoTooltipOpen(true);
+        } else {
+          setInfoTooltipStatus(false);
+          setIsInfoTooltipOpen(true);
+        }
       });
   }
 
@@ -61,7 +72,13 @@ function App() {
         handleLogin(data);
       })
       .catch((err) => {
-        console.log(err);
+        if (err === 'Ошибка: 409') {
+          setInfoTooltipStatus('409');
+          setIsInfoTooltipOpen(true);
+        } else {
+          setInfoTooltipStatus(false);
+          setIsInfoTooltipOpen(true);
+        }
       });
   }
 
@@ -74,7 +91,13 @@ function App() {
         navigate('/movies', { replace: true });
       })
       .catch((err) => {
-        console.log(err);
+        if (err === 'Ошибка: 401') {
+          setInfoTooltipStatus('401');
+          setIsInfoTooltipOpen(true);
+        } else {
+          setInfoTooltipStatus(false);
+          setIsInfoTooltipOpen(true);
+        }
       });
   }
 
@@ -90,6 +113,10 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  function closeAllPopups() {
+    setIsInfoTooltipOpen(false);
   }
 
   return (
@@ -127,6 +154,11 @@ function App() {
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closeAllPopups}
+          tooltipStatus={infoTooltipStatus}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
