@@ -44,3 +44,12 @@ export const signout = async () => {
   });
   return handleCorrectResponse(response);
 };
+
+export const checkAuth = async () => {
+  const response = await fetch(`${BASE_URL}/check`, {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'GET',
+    credentials: 'include',
+  });
+  return handleCorrectResponse(response);
+};

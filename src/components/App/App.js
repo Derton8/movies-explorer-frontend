@@ -26,11 +26,26 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    if (
-      loggedIn &&
-      (location.pathname === '/signup' || location.pathname === '/signin')
-    )
-      navigate('/movies', { replace: true });
+    authApi
+      .checkAuth()
+      .then((res) => {
+        if (res.authorized) {
+          setLoggedIn(true);
+          if (
+            loggedIn &&
+            (location.pathname === '/signup' || location.pathname === '/signin')
+          )
+            navigate('/movies', { replace: true });
+        } else {
+          setLoggedIn(false);
+          localStorage.clear();
+        }
+      })
+      .catch((err) => {
+        setLoggedIn(false);
+        localStorage.clear();
+        console.log(err);
+      });
   }, []);
 
   useEffect(() => {
