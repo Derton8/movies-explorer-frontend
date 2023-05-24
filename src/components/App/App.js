@@ -43,7 +43,6 @@ function App() {
       })
       .catch((err) => {
         setLoggedIn(false);
-        localStorage.clear();
         console.log(err);
       });
   }, []);
