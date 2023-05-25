@@ -1,13 +1,19 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useFormWithValidation } from '../Form/Form';
 import './SearchForm.scss';
 
 export default function SearchForm(props) {
   const { onSubmit, setIsShort, isShort } = props;
   const { values, setValues, handleChange } = useFormWithValidation();
+  const location = useLocation();
 
   useEffect(() => {
-    setValues({ search: localStorage.getItem('search') || '' });
+    if (location.pathname === '/movies') {
+      setValues({ search: localStorage.getItem('search') || '' });
+    } else {
+      setValues({ search: values.search });
+    }
   }, []);
 
   function handleChangeBox(e) {

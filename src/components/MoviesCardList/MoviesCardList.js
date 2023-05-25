@@ -8,11 +8,11 @@ export default function MoviesCardList(props) {
     movies,
     onClickMore,
     notFound,
-    searchedSavedMovies,
     handleMovieLike,
     savedCards,
     savedMovies,
     handleMovieDelete,
+    filteredMovies,
   } = props;
   const location = useLocation();
 
@@ -48,13 +48,21 @@ export default function MoviesCardList(props) {
       ) : (
         <section className='cards'>
           <ul className='cards__list'>
-            {savedMovies.map((card) => (
-              <MoviesCard
-                movie={card}
-                key={card._id}
-                onDelete={handleMovieDelete}
-              ></MoviesCard>
-            ))}
+            {filteredMovies === ''
+              ? savedMovies.map((card) => (
+                  <MoviesCard
+                    movie={card}
+                    key={card._id}
+                    onDelete={handleMovieDelete}
+                  ></MoviesCard>
+                ))
+              : filteredMovies.map((card) => (
+                  <MoviesCard
+                    movie={card}
+                    key={card._id}
+                    onDelete={handleMovieDelete}
+                  ></MoviesCard>
+                ))}
           </ul>
           <div className='cards__container'>
             {notFound && (

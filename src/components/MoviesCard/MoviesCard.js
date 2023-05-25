@@ -22,7 +22,6 @@ export default function MoviesCard(props) {
       e.target.classList.toggle('movie__btn-like_active');
       handleMovieLike(movie, !isLiked);
     } else {
-      console.log('Удалить');
       onDelete(movie);
     }
   };

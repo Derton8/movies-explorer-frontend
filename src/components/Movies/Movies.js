@@ -8,13 +8,13 @@ import './Movies.scss';
 
 export default function Movies(props) {
   const [movies, setMovies] = useState([]);
-  const [search, setSearch] = useState(localStorage.getItem('search'));
   const [filterString, setFilterString] = useState(null);
   const [showCards, setShowCards] = useState(false);
   const [isShort, setIsShort] = useState(false);
   const [page, setPage] = useState(0);
   const [showPreloader, setShowPreloader] = useState(true);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [preloaderStyle, setPreloaderStyle] = useState('none');
 
   const handleResize = useCallback(() => {
     setScreenWidth(window.innerWidth);
@@ -28,7 +28,6 @@ export default function Movies(props) {
     if (savedSearch) {
       setShowCards(true);
       setShowPreloader(false);
-      setSearch(savedSearch);
       setFilterString(savedSearch);
     }
 
@@ -42,26 +41,24 @@ export default function Movies(props) {
 
   useEffect(() => {}, []);
 
-  const handleSubmit = useCallback(
-    async (search) => {
-      if (!localStorage.getItem('movies')) {
-        await moviesApi
-          .getMovies()
-          .then((movies) => {
-            localStorage.setItem('movies', JSON.stringify(movies));
-            setShowCards(true);
-            setShowPreloader(false);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-      setMovies(JSON.parse(localStorage.getItem('movies')));
-      localStorage.setItem('search', search);
-      setFilterString(search);
-    },
-    [search, movies]
-  );
+  const handleSubmit = useCallback(async (search) => {
+    if (!localStorage.getItem('movies')) {
+      setPreloaderStyle('block');
+      await moviesApi
+        .getMovies()
+        .then((movies) => {
+          localStorage.setItem('movies', JSON.stringify(movies));
+          setShowCards(true);
+          setShowPreloader(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    setMovies(JSON.parse(localStorage.getItem('movies')));
+    localStorage.setItem('search', search);
+    setFilterString(search);
+  }, []);
 
   const filteredMovies = useMemo(() => {
     if (!filterString) {
@@ -92,17 +89,16 @@ export default function Movies(props) {
   const handleMoreClick = useCallback(() => {
     const k = screenWidth < 641 ? 2 : screenWidth < 1280 ? 2 : 3;
     setPage((prev) => prev + k);
-  }, []);
+  }, [screenWidth]);
 
   return (
     <main className='movies'>
       <SearchForm
         onSubmit={handleSubmit}
-        value={search}
         setIsShort={setIsShort}
         isShort={isShort}
       ></SearchForm>
-      {showPreloader && <Preloader />}
+      {showPreloader && <Preloader preloaderStyle={preloaderStyle} />}
       {showCards === true && (
         <MoviesCardList
           more={filteredMovies > moviesToRender}
