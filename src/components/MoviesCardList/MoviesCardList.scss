@@ -1,11 +1,14 @@
 .cards {
   padding: 70px 70px 80px;
+  min-height: calc(100vh - 495px);
+  box-sizing: border-box;
 
   @media screen and (max-width: 1150px) {
     padding: 70px 30px 80px;
   }
   @media screen and (max-width: 500px) {
     padding: 40px 10px 80px;
+    min-height: calc(100vh - 576px);
   }
 
   &__list {
@@ -57,5 +60,18 @@
     @media screen and (max-width: 500px) {
       min-width: 240px;
     }
+  }
+
+  &__notfound {
+    margin: 0 auto;
+    padding: 50px;
+    display: block;
+    background-color: #292929;
+    text-align: center;
+    max-width: 300px;
+    min-height: 100px;
+    color: rgb(197, 36, 36);
+    box-sizing: border-box;
+    border-radius: 10px;
   }
 }

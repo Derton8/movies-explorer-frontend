@@ -3,14 +3,17 @@ import { moviesApi } from '../../utils/MoviesApi';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
+import Preloader from '../Preloader/Preloader';
 import './Movies.scss';
 
 export default function Movies(props) {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState(localStorage.getItem('search'));
   const [filterString, setFilterString] = useState(null);
+  const [showCards, setShowCards] = useState(false);
   const [isShort, setIsShort] = useState(false);
   const [page, setPage] = useState(0);
+  const [showPreloader, setShowPreloader] = useState(true);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const handleResize = useCallback(() => {
@@ -18,10 +21,13 @@ export default function Movies(props) {
   }, []);
 
   useEffect(() => {
+    window.addEventListener('resize', handleResize);
     setMovies(JSON.parse(localStorage.getItem('movies')));
     const savedSearch = localStorage.getItem('search');
     const savedIsShort = localStorage.getItem('isShort');
     if (savedSearch) {
+      setShowCards(true);
+      setShowPreloader(false);
       setSearch(savedSearch);
       setFilterString(savedSearch);
     }
@@ -29,14 +35,12 @@ export default function Movies(props) {
     if (savedIsShort) {
       setIsShort(savedIsShort === 'true');
     }
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {}, []);
 
   const handleSubmit = useCallback(
     async (search) => {
@@ -45,6 +49,8 @@ export default function Movies(props) {
           .getMovies()
           .then((movies) => {
             localStorage.setItem('movies', JSON.stringify(movies));
+            setShowCards(true);
+            setShowPreloader(false);
           })
           .catch((err) => {
             console.log(err);
@@ -97,11 +103,15 @@ export default function Movies(props) {
         setIsShort={setIsShort}
         isShort={isShort}
       ></SearchForm>
-      <MoviesCardList
-        more={filteredMovies > moviesToRender}
-        movies={moviesToRender}
-        onClickMore={handleMoreClick}
-      ></MoviesCardList>
+      {showPreloader && <Preloader />}
+      {showCards === true && (
+        <MoviesCardList
+          more={filteredMovies > moviesToRender}
+          movies={moviesToRender}
+          onClickMore={handleMoreClick}
+          notFound={filteredMovies.length === 0}
+        ></MoviesCardList>
+      )}
     </main>
   );
 }

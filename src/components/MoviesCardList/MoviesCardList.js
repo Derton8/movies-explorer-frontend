@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.scss';
 
 export default function MoviesCardList(props) {
-  const { more, movies, onClickMore } = props;
+  const { more, movies, onClickMore, notFound } = props;
   const location = useLocation();
 
   return (
@@ -25,6 +25,7 @@ export default function MoviesCardList(props) {
             Ещё
           </button>
         )}
+        {notFound && <p className='cards__notfound'>Ничего не найдено :с</p>}
       </div>
     </section>
   );

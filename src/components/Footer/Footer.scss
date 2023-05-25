@@ -1,5 +1,7 @@
 .footer {
   padding: 79px 70px 20px;
+  margin-top: auto;
+  flex: 0 0 auto;
 
   @media screen and (max-width: 1150px) {
     padding: 79px 30px 20px;
