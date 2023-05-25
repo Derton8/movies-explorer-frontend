@@ -19,8 +19,10 @@
 5. Система управления версиями `GIT`.
 6. Графический онлайн-редактор `FIGMA`.
 
-## 🔗 Figma
+## 🔗 Ссылки
 
 Ссылка на мой [макет](https://www.figma.com/file/IjD7nyn0T17kzxUK4FjOAs/Diplom?type=design&node-id=891%3A3857&t=PMvfkcHxPHd31Xse-1).
 
 Ссылка на [яндекс.диск](https://disk.yandex.ru/d/jqOLzERl3Du08A).
+
+Ссылка на [pull request](https://github.com/Derton8/movies-explorer-frontend/pull/2).
