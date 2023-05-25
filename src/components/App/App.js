@@ -22,6 +22,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [infoTooltipStatus, setInfoTooltipStatus] = useState('');
+  const [savedCards, setSavedCards] = useState([]);
+  const [searchedSavedMovies, setSearchedSavedMovies] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -49,13 +51,15 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      mainApi
-        .getMe()
-        .then((user) => {
+      Promise.all([mainApi.getMe(), mainApi.getSavedMovies()])
+        .then(([user, savedMovies]) => {
           setCurrentUser(user.data);
+          setSavedCards(savedMovies.data);
         })
         .catch((err) => {
           console.log(err);
+          setInfoTooltipStatus(false);
+          setIsInfoTooltipOpen(true);
         });
     }
   }, [loggedIn]);
@@ -129,6 +133,50 @@ function App() {
       });
   }
 
+  async function handleMovieLike(movie, isLiked) {
+    try {
+      if (!isLiked) {
+        await mainApi.deleteMovie(
+          savedCards.find((movies) => movies.movieId === movie.id)._id
+        );
+      } else {
+        await mainApi.saveMovie(movie);
+      }
+      mainApi
+        .getSavedMovies()
+        .then((savedMovies) => {
+          setSavedCards(savedMovies.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+      setInfoTooltipStatus(false);
+      setIsInfoTooltipOpen(true);
+    }
+  }
+
+  function handleMovieDelete(movie) {
+    mainApi
+      .deleteMovie(movie._id)
+      .then(() => {
+        setSavedCards(
+          savedCards.filter((movies) => movies.movieId !== movie.movieId)
+        );
+        if (searchedSavedMovies !== false) {
+          setSearchedSavedMovies(
+            searchedSavedMovies.filter(
+              (movies) => movies.movieId !== movie.movieId
+            )
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function closeAllPopups() {
     setIsInfoTooltipOpen(false);
   }
@@ -146,12 +194,25 @@ function App() {
           <Route path='/' element={<Main />} />
           <Route
             path='/movies'
-            element={<ProtectedRoute element={Movies} loggedIn={loggedIn} />}
+            element={
+              <ProtectedRoute
+                element={Movies}
+                loggedIn={loggedIn}
+                savedCards={savedCards}
+                handleMovieLike={handleMovieLike}
+              />
+            }
           />
           <Route
             path='/saved-movies'
             element={
-              <ProtectedRoute element={SavedMovies} loggedIn={loggedIn} />
+              <ProtectedRoute
+                element={SavedMovies}
+                loggedIn={loggedIn}
+                searchedSavedMovies={searchedSavedMovies}
+                handleMovieDelete={handleMovieDelete}
+                savedMovies={savedCards}
+              />
             }
           />
           <Route

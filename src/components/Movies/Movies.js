@@ -80,7 +80,6 @@ export default function Movies(props) {
 
     localStorage.setItem('search', filterString);
     localStorage.setItem('isShort', String(isShort));
-
     return filtered;
   }, [filterString, movies, isShort]);
 
@@ -110,6 +109,8 @@ export default function Movies(props) {
           movies={moviesToRender}
           onClickMore={handleMoreClick}
           notFound={filteredMovies.length === 0}
+          handleMovieLike={props.handleMovieLike}
+          savedCards={props.savedCards}
         ></MoviesCardList>
       )}
     </main>

@@ -1,20 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCard.scss';
 
 export default function MoviesCard(props) {
-  const { movie } = props;
+  const { movie, handleMovieLike, savedCards, onDelete } = props;
   const [duration, setDuratiion] = useState('');
   const location = useLocation();
 
   useEffect(() => {
     timeDuration();
   }, []);
+
+  const isLiked = useMemo(() => {
+    return savedCards?.some((i) => {
+      return i.movieId === movie.id;
+    });
+  }, [savedCards, movie]);
+
   const handleIconClick = (e) => {
     if (location.pathname === '/movies') {
       e.target.classList.toggle('movie__btn-like_active');
+      handleMovieLike(movie, !isLiked);
     } else {
       console.log('Удалить');
+      onDelete(movie);
     }
   };
 
@@ -27,6 +36,10 @@ export default function MoviesCard(props) {
     setDuratiion(`${h} ${m}`);
   }
 
+  const cardLikeButtonClassName = `movie__btn-like ${
+    isLiked && 'movie__btn-like_active'
+  }`;
+
   return (
     <li>
       <div className='movie'>
@@ -38,7 +51,7 @@ export default function MoviesCard(props) {
           <button
             className={
               location.pathname === '/movies'
-                ? 'movie__btn-like'
+                ? cardLikeButtonClassName
                 : 'movie__btn-delete'
             }
             type='button'
@@ -49,7 +62,11 @@ export default function MoviesCard(props) {
           <img
             className='movie__img'
             alt={movie.nameRU}
-            src={'https://api.nomoreparties.co' + movie.image.url}
+            src={
+              location.pathname === '/movies'
+                ? 'https://api.nomoreparties.co' + movie.image.url
+                : movie.image
+            }
           />
         </a>
       </div>

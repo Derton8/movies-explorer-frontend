@@ -3,6 +3,7 @@ import { apiConfig } from './constants.js';
 class MainApi {
   constructor(config) {
     this._url = config.url;
+    this._movieUrl = config.yandexUrl;
     this._headers = config.headers;
   }
 
@@ -29,6 +30,45 @@ class MainApi {
         name,
         email,
       }),
+      credentials: 'include',
+    });
+    return this._handleCorrectResponse(response);
+  }
+
+  async getSavedMovies() {
+    const response = await fetch(`${this._url}/movies`, {
+      headers: this._headers,
+      credentials: 'include',
+    });
+    return this._handleCorrectResponse(response);
+  }
+
+  async saveMovie(data) {
+    const response = await fetch(`${this._url}/movies`, {
+      headers: this._headers,
+      method: 'POST',
+      body: JSON.stringify({
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: `https://api.nomoreparties.co/${data.image.url}`,
+        trailerLink: data.trailerLink,
+        thumbnail: `${this._movieUrl}${data.image.url}`,
+        movieId: data.id,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN,
+      }),
+      credentials: 'include',
+    });
+    return this._handleCorrectResponse(response);
+  }
+
+  async deleteMovie(data) {
+    const response = await fetch(`${this._url}/movies/${data}`, {
+      headers: this._headers,
+      method: 'DELETE',
       credentials: 'include',
     });
     return this._handleCorrectResponse(response);

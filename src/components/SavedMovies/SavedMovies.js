@@ -6,7 +6,10 @@ export default function SavedMovies(props) {
   return (
     <main className='movies'>
       <SearchForm></SearchForm>
-      <MoviesCardList></MoviesCardList>
+      <MoviesCardList
+        savedMovies={props.savedMovies}
+        handleMovieDelete={props.handleMovieDelete}
+      ></MoviesCardList>
     </main>
   );
 }
