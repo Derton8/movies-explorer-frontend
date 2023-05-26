@@ -1,48 +1,76 @@
 import { useLocation } from 'react-router-dom';
-
-import img1 from '../../images/img-1.png';
-import img2 from '../../images/img-2.png';
-import img3 from '../../images/img-3.png';
-import img4 from '../../images/img-4.png';
-import img5 from '../../images/img-5.png';
-import img6 from '../../images/img-6.png';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.scss';
 
 export default function MoviesCardList(props) {
+  const {
+    more,
+    movies,
+    onClickMore,
+    notFound,
+    handleMovieLike,
+    savedCards,
+    savedMovies,
+    handleMovieDelete,
+    filteredMovies,
+  } = props;
   const location = useLocation();
 
   return (
-    <section className='cards'>
-      <ul className='cards__list'>
-        <li>
-          <MoviesCard link={img1}></MoviesCard>
-        </li>
-        <li>
-          <MoviesCard link={img2}></MoviesCard>
-        </li>
-        <li>
-          <MoviesCard link={img3}></MoviesCard>
-        </li>
-        <li>
-          <MoviesCard link={img4}></MoviesCard>
-        </li>
-        <li>
-          <MoviesCard link={img5}></MoviesCard>
-        </li>
-        <li>
-          <MoviesCard link={img6}></MoviesCard>
-        </li>
-      </ul>
-      <div className='cards__container'>
-        <button
-          className='cards__btn'
-          type='button'
-          style={{ display: location.pathname === '/saved-movies' && 'none' }}
-        >
-          Ещё
-        </button>
-      </div>
-    </section>
+    <>
+      {location.pathname === '/movies' ? (
+        <section className='cards'>
+          <ul className='cards__list'>
+            {movies.map((movie) => (
+              <MoviesCard
+                movie={movie}
+                key={movie.id}
+                handleMovieLike={handleMovieLike}
+                savedCards={savedCards}
+              ></MoviesCard>
+            ))}
+          </ul>
+          <div className='cards__container'>
+            {more && (
+              <button
+                className='cards__btn'
+                type='button'
+                onClick={onClickMore}
+              >
+                Ещё
+              </button>
+            )}
+            {notFound && (
+              <p className='cards__notfound'>Ничего не найдено :с</p>
+            )}
+          </div>
+        </section>
+      ) : (
+        <section className='cards'>
+          <ul className='cards__list'>
+            {filteredMovies === ''
+              ? savedMovies.map((card) => (
+                  <MoviesCard
+                    movie={card}
+                    key={card._id}
+                    onDelete={handleMovieDelete}
+                  ></MoviesCard>
+                ))
+              : filteredMovies.map((card) => (
+                  <MoviesCard
+                    movie={card}
+                    key={card._id}
+                    onDelete={handleMovieDelete}
+                  ></MoviesCard>
+                ))}
+          </ul>
+          <div className='cards__container'>
+            {notFound && (
+              <p className='cards__notfound'>Ничего не найдено :с</p>
+            )}
+          </div>
+        </section>
+      )}
+    </>
   );
 }

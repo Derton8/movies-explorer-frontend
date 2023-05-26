@@ -1,13 +1,40 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useFormWithValidation } from '../Form/Form';
 import './SearchForm.scss';
 
 export default function SearchForm(props) {
+  const { onSubmit, setIsShort, isShort } = props;
+  const { values, setValues, handleChange } = useFormWithValidation();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/movies') {
+      setValues({ search: localStorage.getItem('search') || '' });
+    } else {
+      setValues({ search: values.search });
+    }
+  }, []);
+
+  function handleChangeBox(e) {
+    setIsShort(e.target.checked);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSubmit(values.search);
+  }
+
   return (
-    <form className='search'>
+    <form className='search' onSubmit={handleSubmit}>
       <div className='search__columns'>
         <input
           className='search__input'
-          type='search'
+          type='text'
+          name='search'
           placeholder='Фильм'
+          value={values.search || ''}
+          onChange={handleChange}
           required
         />
         <button className='search__btn' type='submit'>
@@ -16,7 +43,7 @@ export default function SearchForm(props) {
       </div>
       <div className='search__container'>
         <label className='search__switch'>
-          <input type='checkbox' required />
+          <input type='checkbox' onChange={handleChangeBox} checked={isShort} />
           <span className='search__slider'></span>
         </label>
         <p className='search__text'>Короткометражки</p>

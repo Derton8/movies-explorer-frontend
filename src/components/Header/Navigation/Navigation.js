@@ -1,9 +1,16 @@
 import { NavLink } from 'react-router-dom';
 
+import { useEffect } from 'react';
 import './Navigation.scss';
 
 export default function Navigation(props) {
-  window.addEventListener('resize', handleResize, false);
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   function handleResize() {
     const toggle = document.getElementById('toggle');

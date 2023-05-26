@@ -134,6 +134,16 @@
       opacity: 0.8;
     }
 
+    &:disabled {
+      background: #2f2f2f;
+      cursor: default;
+      color: grey;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
     @media screen and (max-width: 1150px) {
       margin: 69px 0 16px;
     }
